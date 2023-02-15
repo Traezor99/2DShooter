@@ -23,6 +23,12 @@ public class Enemy : MonoBehaviour
     [Tooltip("The enemy's gun components")]
     public List<ShootingController> guns = new List<ShootingController>();
 
+    [Header("OnDeath Enemy Spawn")]
+    [Tooltip("The prefab of the enemies to spawn on death")]
+    public GameObject enemyPrefab = null;
+    [Tooltip("The number of enemies to spawn when this one dies")]
+    public int enemiesToSpawn = 0;
+
     /// <summary>
     /// Enum to help with shooting modes
     /// </summary>
@@ -57,7 +63,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     private void LateUpdate()
     {
-        HandleBehaviour();       
+        HandleBehaviour();
     }
 
     /// <summary>
@@ -111,7 +117,13 @@ public class Enemy : MonoBehaviour
     public void DoBeforeDestroy()
     {
         AddToScore();
-        IncrementEnemiesDefeated();
+        if (!this.name.Contains("ChaserEnemy") && !this.name.Contains("StraightShooterSpawner"))
+            IncrementEnemiesDefeated();
+
+        for (int i = 0; i < enemiesToSpawn; i++)
+        {
+            SpawnEnemy(GetSpawnLocation());
+        }
     }
 
     /// <summary>
@@ -143,7 +155,44 @@ public class Enemy : MonoBehaviour
         if (GameManager.instance != null && !GameManager.instance.gameIsOver)
         {
             GameManager.instance.IncrementEnemiesDefeated();
-        }       
+        }
+    }
+
+    /// <summary>
+    /// Description:
+    /// Spawn and set up an instance of the enemy prefab
+    /// Inputs: 
+    /// Vector3 spawnLocation
+    /// Returns: 
+    /// void (no return)
+    /// </summary>
+    /// <param name="spawnLocation">The location to spawn an enmy at</param>
+    private void SpawnEnemy(Vector3 spawnLocation)
+    {
+        // Make sure the prefab is valid
+        if (enemyPrefab != null)
+        {
+            // Spawn enemy
+            Instantiate(enemyPrefab, spawnLocation, enemyPrefab.transform.rotation, null);
+        }
+    }
+
+    /// <summary>
+    /// Description:
+    /// Returns a generated spawn location for an enemy
+    /// Inputs: 
+    /// none
+    /// Returns: 
+    /// Vector3
+    /// </summary>
+    /// <returns>Vector3: The spawn location as determined by the function</returns>
+    protected virtual Vector3 GetSpawnLocation()
+    {
+        // Get random coordinates
+        float x = Random.Range(0 - 1f, 1f);
+        float y = Random.Range(0 - 1f, 1f);
+        // Return the coordinates as a vector
+        return new Vector3(transform.position.x + x, transform.position.y + y, 0);
     }
 
     /// <summary>
@@ -178,7 +227,7 @@ public class Enemy : MonoBehaviour
     protected virtual Vector3 GetDesiredMovement()
     {
         Vector3 movement;
-        switch(movementMode)
+        switch (movementMode)
         {
             case MovementModes.FollowTarget:
                 movement = GetFollowPlayerMovement();
