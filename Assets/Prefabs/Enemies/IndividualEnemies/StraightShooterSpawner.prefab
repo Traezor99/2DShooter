@@ -124,6 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   scoreValue: 0
+  includeEnemy: 0
   followTarget: {fileID: 0}
   followRange: 30
   guns:

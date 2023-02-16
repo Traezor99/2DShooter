@@ -178,6 +178,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3936081893875274733, guid: 395330b6cfb66f246a4c7682cf797c5e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6692231656769551244, guid: 395330b6cfb66f246a4c7682cf797c5e, type: 3}
+      propertyPath: m_Text
+      value: Use WASD to move and the left mouse button to shoot. Defeat all of the
+        enemies on each level to advance to the next. You do not have to defeat enemies
+        in the "gauntlet" on level 3, or enemies that spawn from another enemy.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6759903301882710322, guid: 395330b6cfb66f246a4c7682cf797c5e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 6759903301882710322, guid: 395330b6cfb66f246a4c7682cf797c5e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 200
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 395330b6cfb66f246a4c7682cf797c5e, type: 3}
 --- !u!1 &2011002301

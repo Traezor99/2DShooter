@@ -4227,6 +4227,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4532639187125469161, guid: c5496956a13b24c4cb52fe0194bbdfb7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Level2
+      objectReference: {fileID: 0}
     - target: {fileID: 7254696245022767833, guid: c5496956a13b24c4cb52fe0194bbdfb7, type: 3}
       propertyPath: m_Name
       value: LevelWinScreen
@@ -4932,6 +4936,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2464152929479571738, guid: 984cfa3a546474644a90165c27481737, type: 3}
       propertyPath: projectileHolder
+      value: 
+      objectReference: {fileID: 630147529}
+    - target: {fileID: 2464152929479571742, guid: 984cfa3a546474644a90165c27481737, type: 3}
+      propertyPath: effectHolder
       value: 
       objectReference: {fileID: 630147529}
     m_RemovedComponents: []

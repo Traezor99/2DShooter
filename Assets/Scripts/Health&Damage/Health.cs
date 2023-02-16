@@ -121,7 +121,7 @@ public class Health : MonoBehaviour
     /// void (no return)
     /// </summary>
     /// <param name="damageAmount">The amount of damage to take</param>
-    public void TakeDamage(int damageAmount)
+    public virtual void TakeDamage(int damageAmount)
     {
         if (isInvincableFromDamage || isAlwaysInvincible)
         {
@@ -131,7 +131,13 @@ public class Health : MonoBehaviour
         {
             if (hitEffect != null)
             {
-                Instantiate(hitEffect, transform.position, transform.rotation, null);
+                GameObject hitObj = Instantiate(hitEffect, transform.position, transform.rotation, null);
+
+                // Keep the heirarchy organized
+                if (effectHolder != null)
+                {
+                    hitObj.transform.SetParent(effectHolder);
+                }
             }
             timeToBecomeDamagableAgain = Time.time + invincibilityTime;
             isInvincableFromDamage = true;
@@ -164,6 +170,8 @@ public class Health : MonoBehaviour
     public GameObject deathEffect;
     [Tooltip("The effect to create when this health is damaged")]
     public GameObject hitEffect;
+    [Tooltip("The transform in the heirarchy which holds effects if any")]
+    public Transform effectHolder = null;
 
     /// <summary>
     /// Description:
@@ -197,8 +205,14 @@ public class Health : MonoBehaviour
     public void Die()
     {
         if (deathEffect != null)
-        {
-            Instantiate(deathEffect, transform.position, transform.rotation, null);
+        {           
+            GameObject deathObj = Instantiate(deathEffect, transform.position, transform.rotation, null);
+
+            // Keep the heirarchy organized
+            if (effectHolder != null)
+            {
+                deathObj.transform.SetParent(effectHolder);
+            }
         }
 
         if (useLives)

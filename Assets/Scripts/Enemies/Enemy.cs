@@ -12,6 +12,8 @@ public class Enemy : MonoBehaviour
     public float moveSpeed = 5.0f;
     [Tooltip("The score value for defeating this enemy")]
     public int scoreValue = 5;
+    [Tooltip("Should the enemy count towards clearing the level")]
+    public bool includeEnemy = true;
 
     [Header("Following Settings")]
     [Tooltip("The transform of the object that this enemy should follow.")]
@@ -117,7 +119,7 @@ public class Enemy : MonoBehaviour
     public void DoBeforeDestroy()
     {
         AddToScore();
-        if (!this.name.Contains("ChaserEnemy") && !this.name.Contains("StraightShooterSpawner"))
+        if (includeEnemy)
             IncrementEnemiesDefeated();
 
         for (int i = 0; i < enemiesToSpawn; i++)
@@ -166,14 +168,15 @@ public class Enemy : MonoBehaviour
     /// Returns: 
     /// void (no return)
     /// </summary>
-    /// <param name="spawnLocation">The location to spawn an enmy at</param>
+    /// <param name="spawnLocation">The location to spawn an enemy at</param>
     private void SpawnEnemy(Vector3 spawnLocation)
     {
         // Make sure the prefab is valid
         if (enemyPrefab != null)
         {
-            // Spawn enemy
-            Instantiate(enemyPrefab, spawnLocation, enemyPrefab.transform.rotation, null);
+            GameObject enemyObj = Instantiate(enemyPrefab, spawnLocation, enemyPrefab.transform.rotation, null);
+            Enemy enemy = enemyObj.GetComponent<Enemy>();
+            enemy.includeEnemy = false;
         }
     }
 
